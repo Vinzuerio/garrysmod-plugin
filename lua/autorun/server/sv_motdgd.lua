@@ -12,18 +12,12 @@ if SERVER then
 end
 
 function MOTDgd.GetServerInfo()
-	local HostIP = GetConVarString("hostip")
-	MOTDgd.Port = GetConVarString("hostport")
-
-	HostIP = tonumber( HostIP )
-
-	local IP = {}
-	IP[1] = bit.rshift(bit.band(HostIP, 0xFF000000), 24)
-	IP[2] = bit.rshift(bit.band(HostIP, 0x00FF0000), 16)
-	IP[3] = bit.rshift(bit.band(HostIP, 0x0000FF00), 8)
-	IP[4] = bit.band(HostIP, 0x000000FF)
-
-	MOTDgd.IP = table.concat(IP, ".")
+	local SvAddress = string.Explode(':',game.GetIPAddress())
+	
+	local HostIP = SvAddress[1]
+	MOTDgd.Port = SvAddress[2]
+	
+	MOTDgd.IP = HostIP
 end
 
 function MOTDgd.Show(ply, Forced, WaitTime, isAdRetry)
